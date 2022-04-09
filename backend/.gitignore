@@ -1,0 +1,20 @@
+.env
+
+/.bundle
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+/storage/*
+!/storage/.keep
+.byebug_history
+
+# master key Multi envに対応
+/config/**/*.key
+/config/master.key

@@ -1,0 +1,8 @@
+.idea
+**/*.log
+**/*.cache
+**/*.pid
+
+# frontend
+frontend/node_modules
+
