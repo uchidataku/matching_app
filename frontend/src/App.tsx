@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {execTest} from "./lib/api/test";
 
 function App() {
+    const [message, setMessage] = useState<string>('')
+
+    const handleExecTest = async () => {
+        const res = await execTest()
+
+        if (res.status === 200) {
+            setMessage(res.data.message)
+        }
+    }
+
+    useEffect(() => {handleExecTest()}, [])
+
   return (
-    <div className="App">
-      <h2>Hello</h2>
-    </div>
+      <h2>{message}</h2>
   );
 }
 
