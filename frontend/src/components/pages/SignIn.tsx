@@ -5,6 +5,7 @@ import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from 
 import {SignInData} from "../../interfaces";
 import {signIn} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
+import AlertMessage from "../utils/AlertMessage";
 
 const useStyles = makeStyles(() => ({
     submitBtn: {
@@ -33,6 +34,7 @@ function SignIn() {
     const { setIsSignedIn, setCurrentAccount } = useContext(AuthContext)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault() // ユーザーにイベントが明示的に処理されない場合にその既定のアクションを通常通りに行うべきではないことを伝える
@@ -54,12 +56,15 @@ function SignIn() {
                 setCurrentAccount(res.data.account)
                 console.log("Signed in successfully!!")
             } else {
-
+                setAlertMessageOpen(true)
             }
         } catch (err) {
             console.log(err)
+            setAlertMessageOpen(true)
         }
     }
+
+    console.log(alertMessageOpen)
 
     return (
         <>
@@ -111,6 +116,12 @@ function SignIn() {
                     </CardContent>
                 </Card>
             </form>
+            <AlertMessage
+                open={alertMessageOpen}
+                setOpen={setAlertMessageOpen}
+                severity="error"
+                message="メールアドレスかパスワードが間違っています"
+            />
         </>
     )
 }
