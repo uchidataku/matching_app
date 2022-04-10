@@ -2,8 +2,18 @@
 module Api
   # AccountsController
   class AccountsController < ApplicationController
+    before_action :set_account, only: %i[show update]
+    
+    def index
+      @accounts = Account.where.not(id: current_account.id)
+      render json: @accounts
+    end
+    
+    def show
+      render json: @account
+    end
+
     def edit
-      @account = Account.find(params[:id])
       @account.update!(resource_params)
       render json: @account
     end
@@ -18,6 +28,10 @@ module Api
         :introduction,
         :avatar
       )
+    end
+    
+    def set_account
+      @account = Account.find(params[:id])
     end
   end
 end

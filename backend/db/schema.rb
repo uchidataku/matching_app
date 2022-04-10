@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_04_10_154239) do
   create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, comment: "メッセージ", force: :cascade do |t|
     t.uuid "room_id"
     t.uuid "account_id"
+    t.string "content", comment: "内容"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_messages_on_account_id"
