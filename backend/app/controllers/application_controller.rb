@@ -2,4 +2,12 @@
 
 # ApplicationController
 class ApplicationController < ActionController::API
+  before_action :authenticate_account!
+
+  attr_reader :current_account
+
+  def authenticate_account!
+    @current_jwt = /Bearer (.*)/.match(request.headers[:Authorization]).to_a[1]
+    @current_account = Account.authenticate!(@current_jwt)
+  end
 end

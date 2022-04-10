@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   }
 
   namespace :api do
+    post :sign_in, to: 'auth#sign_in'
+    post :sign_up, to: 'auth#sign_up'
+
     get :test, to: 'test#index'
   end
 end

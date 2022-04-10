@@ -9,9 +9,11 @@ gem 'rails', '6.1.4'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'activerecord-import', '~> 1.0'
+gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'config'
 gem 'dotenv-rails'
+gem 'jwt'
 gem 'niceql', '~> 0.1.25'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
