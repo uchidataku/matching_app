@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_10_132449) do
+ActiveRecord::Schema.define(version: 2022_04_10_134337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 2022_04_10_132449) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, comment: "いいね", force: :cascade do |t|
+    t.uuid "from_account_id"
+    t.uuid "to_account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["from_account_id"], name: "index_likes_on_from_account_id"
+    t.index ["to_account_id"], name: "index_likes_on_to_account_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "accounts", column: "from_account_id"
+  add_foreign_key "likes", "accounts", column: "to_account_id"
 end
