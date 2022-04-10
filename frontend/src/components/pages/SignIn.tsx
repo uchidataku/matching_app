@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {makeStyles} from "@mui/styles";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from "@mui/material";
 import {SignInData} from "../../interfaces";
 import {signIn} from "../../lib/api/auth";
@@ -31,6 +31,7 @@ const useStyles = makeStyles(() => ({
 
 function SignIn() {
     const classes = useStyles()
+    const navigate = useNavigate()
     const { setIsSignedIn, setCurrentAccount } = useContext(AuthContext)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -54,6 +55,7 @@ function SignIn() {
                 localStorage.setItem("AUTH_TOKEN", res.data.token)
                 setIsSignedIn(true)
                 setCurrentAccount(res.data.account)
+                navigate("/")
                 console.log("Signed in successfully!!")
             } else {
                 setAlertMessageOpen(true)
