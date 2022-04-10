@@ -66,8 +66,6 @@ function SignIn() {
         }
     }
 
-    console.log(alertMessageOpen)
-
     return (
         <>
             <form noValidate autoComplete='off'>

@@ -15,6 +15,9 @@ class Account < ApplicationRecord
   has_many :likes_to, class_name: 'Like', foreign_key: :to_account_id, dependent: :destroy
   has_many :active_like_accounts, through: :likes_from, source: :to_account
   has_many :passive_like_accounts, through: :likes_to, source: :from_account
+  has_many :room_accounts
+  has_many :rooms, through: :room_accounts
+  has_many :messages
 
   enum gender: { male: 0, female: 1 }, _suffix: true
 

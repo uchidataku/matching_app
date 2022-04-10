@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_10_134337) do
+ActiveRecord::Schema.define(version: 2022_04_10_154239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -67,8 +67,36 @@ ActiveRecord::Schema.define(version: 2022_04_10_134337) do
     t.index ["to_account_id"], name: "index_likes_on_to_account_id"
   end
 
+  create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, comment: "メッセージ", force: :cascade do |t|
+    t.uuid "room_id"
+    t.uuid "account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_messages_on_account_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+  end
+
+  create_table "room_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, comment: "RoomAccount", force: :cascade do |t|
+    t.uuid "room_id"
+    t.uuid "account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id", "room_id"], name: "index_room_accounts_on_account_id_and_room_id", unique: true
+    t.index ["account_id"], name: "index_room_accounts_on_account_id"
+    t.index ["room_id"], name: "index_room_accounts_on_room_id"
+  end
+
+  create_table "rooms", id: :uuid, default: -> { "gen_random_uuid()" }, comment: "トークルーム", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "likes", "accounts", column: "from_account_id"
-  add_foreign_key "likes", "accounts", column: "to_account_id"
+  add_foreign_key "likes", "accounts", column: "from_account_id", on_delete: :cascade
+  add_foreign_key "likes", "accounts", column: "to_account_id", on_delete: :cascade
+  add_foreign_key "messages", "accounts", on_delete: :cascade
+  add_foreign_key "messages", "rooms", on_delete: :cascade
+  add_foreign_key "room_accounts", "accounts", on_delete: :cascade
+  add_foreign_key "room_accounts", "rooms", on_delete: :cascade
 end
