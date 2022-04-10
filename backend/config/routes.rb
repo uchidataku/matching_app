@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     post :sign_in, to: 'auth#sign_in'
     post :sign_up, to: 'auth#sign_up'
 
-    resources :accounts, only: :update
+    resources :accounts, except: %i[create destroy]
+    resources :rooms, only: %i[index show] do
+      resources :messages, only: :create
+    end
   end
 end
