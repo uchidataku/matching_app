@@ -7,7 +7,7 @@ import {Typography} from "@mui/material";
 import {Button} from "@mui/material";
 import {IconButton} from "@mui/material";
 import {Menu} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom"
 import {AuthContext} from "../../App";
 
 const useStyles = makeStyles(() => ({
@@ -23,13 +23,29 @@ const useStyles = makeStyles(() => ({
 }))
 
 function Header() {
-    const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
+    const { loading, isSignedIn, setIsSignedIn, setCurrentAccount } = useContext(AuthContext)
     const classes = useStyles()
+    const navigate = useNavigate()
+
+    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setCurrentAccount(undefined)
+        setIsSignedIn(false)
+        localStorage.removeItem("AUTH_TOKEN")
+        navigate("/signin")
+    }
 
     const AuthButtons = () => {
         if (!loading) {
             if (isSignedIn) {
-                return <></>
+                return (
+                    <Button
+                        color="inherit"
+                        className={classes.linkBtn}
+                        onClick={handleLogout}
+                    >
+                        ログアウト
+                    </Button>
+                )
             } else {
                 return (
                     <Button
