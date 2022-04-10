@@ -1,8 +1,10 @@
 export interface SignUpData {
-    username: string
-    email: string
-    password: string
-    passwordConfirmation: string
+    account: {
+        username: string
+        email: string
+        password: string
+        passwordConfirmation: string
+    }
 }
 
 export interface SignInData {

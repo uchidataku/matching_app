@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import SignIn from "./components/pages/SignIn";
 import {Account} from "./interfaces";
 import Home from "./components/pages/Home";
+import SignUp from "./components/pages/SignUp";
 
 export const AuthContext = createContext({} as {
     loading: boolean
@@ -36,6 +37,7 @@ function App() {
                 <CommonLayout>
                     <Routes>
                         <Route path='/signin' element={<SignIn/>}/>
+                        <Route path='/signup' element={<SignUp/>}/>
                         <Route path='/' element={<Home/>}/>
                     </Routes>
                 </CommonLayout>
