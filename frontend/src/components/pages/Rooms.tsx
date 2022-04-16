@@ -14,7 +14,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {Room} from "../../interfaces";
+import {Room} from "../../interfaces/room";
 import {getRooms} from "../../lib/api/rooms";
 
 const useStyles = makeStyles(() => ({

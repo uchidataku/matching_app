@@ -1,5 +1,5 @@
 import client from "./client";
-import {UpdateAccountData} from "../../interfaces";
+import {UpdateAccountData} from "../../interfaces/account";
 
 const token = localStorage.getItem("AUTH_TOKEN");
 

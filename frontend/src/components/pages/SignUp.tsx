@@ -1,11 +1,22 @@
 import React, {useContext, useState} from "react";
 import {makeStyles} from "@mui/styles";
 import {Link, useNavigate} from "react-router-dom"
-import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from "@mui/material";
-import {Gender, SignUpData} from "../../interfaces";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    FormControl,
+    InputLabel, MenuItem, Select,
+    TextField,
+    Typography
+} from "@mui/material";
+import {SignUpParams} from "../../interfaces/account"
 import {signUp} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
+import {genders} from "../../data/genders";
 
 const useStyles = makeStyles(() => ({
     submitBtn: {
@@ -37,7 +48,7 @@ function SignUp() {
     const [password, setPassword] = useState<string>('')
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
     const [username, setUsername] = useState<string>('')
-    const [gender, setGender] = useState<Gender>('male')
+    const [gender, setGender] = useState<number>(0)
     const [prefecture, setPrefecture] = useState<string>('')
     const [introduction, setIntroduction] = useState<string>('')
     const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
@@ -45,7 +56,7 @@ function SignUp() {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault() // ユーザーにイベントが明示的に処理されない場合にその既定のアクションを通常通りに行うべきではないことを伝える
 
-        const data: SignUpData = {
+        const data: SignUpParams = {
             account: {
                 email: email,
                 password: password,
@@ -123,6 +134,26 @@ function SignUp() {
                             margin="dense"
                             onChange={event => setUsername(event.target.value)}
                         />
+                        <FormControl
+                            variant="outlined"
+                            margin="dense"
+                            fullWidth
+                        >
+                            <InputLabel id="demo-simple-select-outlined-label">性別</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                value={gender}
+                                // onChange={(e: React.ChangeEvent<{ value: unknown }>) => setGender(e.target.value as number)}
+                                label="性別"
+                            >
+                                {
+                                    genders.map((gender: string, index: number) =>
+                                        <MenuItem value={index}>{gender}</MenuItem>
+                                    )
+                                }
+                            </Select>
+                        </FormControl>
                         <Box className={classes.submitBtn}>
                             <Button
                                 type="submit"

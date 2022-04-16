@@ -1,10 +1,10 @@
-export interface SignUpData {
+export interface SignUpParams {
     account: {
         username: string
         email: string
         password: string
         passwordConfirmation: string
-        gender: Gender
+        gender: number
         prefecture: string
         introduction: string
     }
@@ -17,13 +17,22 @@ export interface SignInData {
     }
 }
 
-export type Gender = 'male' | 'female'
+// export type Gender = 'male' | 'female'
+//
+// export const genderLabelFor = (gender: Gender): string => {
+//     switch(gender) {
+//         case "male":
+//             return "男性";
+//         case "female":
+//             return "女性";
+//     }
+// }
 
 export interface Account {
     id: string
     email: string
     username: string
-    gender: Gender
+    gender: number
     birthday: Date
     prefecture: string
     introduction: string
@@ -32,26 +41,10 @@ export interface Account {
 
 export interface UpdateAccountData {
     account: {
-        gender: Gender
+        gender: number
         birthday: Date
         prefecture: string
         introduction: string
         avatar: string
-    }
-}
-
-export interface Room {
-    id: string
-    otherAccount: Account
-    latestMessage: string
-}
-
-export interface Message {
-    content: string
-}
-
-export interface CreateMessageData {
-    message: {
-        content: string
     }
 }

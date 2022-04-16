@@ -2,7 +2,7 @@ import React, {createContext, useEffect, useState} from 'react';
 import CommonLayout from "./components/layouts/CommonLayout";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import SignIn from "./components/pages/SignIn";
-import {Account} from "./interfaces";
+import {Account} from "./interfaces/account";
 import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Rooms from "./components/pages/Rooms";

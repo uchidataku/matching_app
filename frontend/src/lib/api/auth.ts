@@ -1,7 +1,7 @@
 import client from "./client";
-import { SignInData, SignUpData } from "../../interfaces";
+import { SignInData, SignUpParams } from "../../interfaces/account";
 
-export const signUp = (data: SignUpData) => {
+export const signUp = (data: SignUpParams) => {
     return client.post('sign_up', data)
 }
 

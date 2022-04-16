@@ -1,5 +1,5 @@
 import client from "./client";
-import {CreateMessageData} from "../../interfaces";
+import {CreateMessageData} from "../../interfaces/message";
 
 const token = localStorage.getItem("AUTH_TOKEN");
 

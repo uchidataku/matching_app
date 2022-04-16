@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {makeStyles} from "@mui/styles";
 import {Link, useNavigate} from "react-router-dom"
 import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from "@mui/material";
-import {SignInData} from "../../interfaces";
+import {SignInData} from "../../interfaces/account";
 import {signIn} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
