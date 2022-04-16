@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {makeStyles} from "@mui/styles";
 import {Link, useNavigate} from "react-router-dom"
 import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from "@mui/material";
-import {SignUpData} from "../../interfaces";
+import {Gender, SignUpData} from "../../interfaces";
 import {signUp} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
@@ -37,6 +37,9 @@ function SignUp() {
     const [password, setPassword] = useState<string>('')
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
     const [username, setUsername] = useState<string>('')
+    const [gender, setGender] = useState<Gender>('male')
+    const [prefecture, setPrefecture] = useState<string>('')
+    const [introduction, setIntroduction] = useState<string>('')
     const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +50,10 @@ function SignUp() {
                 email: email,
                 password: password,
                 passwordConfirmation: passwordConfirmation,
-                username: username
+                username: username,
+                gender: gender,
+                prefecture: prefecture,
+                introduction: introduction
             }
         }
 

@@ -1,5 +1,4 @@
 import client from "./client";
-import Cookies from "js-cookie";
 import { SignInData, SignUpData } from "../../interfaces";
 
 export const signUp = (data: SignUpData) => {

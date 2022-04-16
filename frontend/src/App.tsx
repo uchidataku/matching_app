@@ -5,6 +5,7 @@ import SignIn from "./components/pages/SignIn";
 import {Account} from "./interfaces";
 import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
+import Rooms from "./components/pages/Rooms";
 
 export const AuthContext = createContext({} as {
     loading: boolean
@@ -39,6 +40,7 @@ function App() {
                         <Route path='/signin' element={<SignIn/>}/>
                         <Route path='/signup' element={<SignUp/>}/>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='/rooms' element={<Rooms/>}/>
                     </Routes>
                 </CommonLayout>
             </AuthContext.Provider>
