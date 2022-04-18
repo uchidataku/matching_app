@@ -6,6 +6,7 @@ import {Account} from "./interfaces/account";
 import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Rooms from "./components/pages/Rooms";
+import Accounts from "./components/pages/Accounts";
 
 export const AuthContext = createContext({} as {
     loading: boolean
@@ -40,6 +41,7 @@ function App() {
                         <Route path='/signin' element={<SignIn/>}/>
                         <Route path='/signup' element={<SignUp/>}/>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='/accounts' element={<Accounts/>}/>
                         <Route path='/rooms' element={<Rooms/>}/>
                     </Routes>
                 </CommonLayout>

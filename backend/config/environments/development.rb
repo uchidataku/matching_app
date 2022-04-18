@@ -12,6 +12,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
   config.active_record.migration_error = :page_load
   config.active_record.verbose_query_logs = true
+  config.active_storage.service = :local
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.cache_store = :memory_store

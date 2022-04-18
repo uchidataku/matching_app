@@ -24,4 +24,8 @@ class Account < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates :password, length: { minimum: 8 }, if: -> { password.present? }
   validates :username, presence: true, uniqueness: true
+
+  def avatar_url
+    url_for(avatar)
+  end
 end
