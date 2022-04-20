@@ -33,7 +33,7 @@ export interface Account {
     email: string
     username: string
     gender: number
-    birthday: Date
+    birthday: String | number | Date
     prefecture: string
     introduction: string
     avatarUrl: string
