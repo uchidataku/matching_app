@@ -14,3 +14,10 @@ export const getAccount = (id: string) => {
 export const updateAccount = (id: string, data: UpdateAccountData) => {
     return client.patch(`accounts/${id}`, data, { headers: { 'Authorization': `Bearer ${token}` } })
 }
+
+export const getCurrentAccount = () => {
+    console.log('===token==')
+    console.log(token)
+    if(!token) return
+    return client.get('current_account', { headers: { 'Authorization': `Bearer ${token}` } })
+}

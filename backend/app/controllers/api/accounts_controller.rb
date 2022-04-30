@@ -18,6 +18,11 @@ module Api
       render json: @account
     end
 
+    def current
+      @account = current_account
+      render json: @account
+    end
+
     private
 
     def resource_params

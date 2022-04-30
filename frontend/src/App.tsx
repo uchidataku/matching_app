@@ -7,6 +7,7 @@ import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Rooms from "./components/pages/Rooms";
 import Accounts from "./components/pages/Accounts";
+import {getCurrentAccount} from "./lib/api/accounts";
 
 export const AuthContext = createContext({} as {
     loading: boolean
@@ -22,15 +23,29 @@ function App() {
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
     const [currentAccount, setCurrentAccount] = useState<Account | undefined>()
 
-    const handleCurrentAccount = () => {
-        if (currentAccount === undefined) {
-            console.log("No CurrentAccount")
+    const handleGetCurrentAccount = async () => {
+        console.log('- handleGetCurrentAccount')
+        try {
+            const res = await getCurrentAccount()
+            console.log('===res==')
+            console.log(res)
+
+            if (res?.status === 200) {
+                console.log('setCurrentAccount')
+                setIsSignedIn(true)
+                setCurrentAccount(res?.data)
+            } else {
+                console.log("No CurrentAccount")
+            }
+        } catch (err) {
+            console.log(err)
         }
+
         setLoading(false)
     }
 
     useEffect(() => {
-        handleCurrentAccount()
+        handleGetCurrentAccount()
     }, [setCurrentAccount])
 
     return (

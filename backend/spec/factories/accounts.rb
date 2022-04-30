@@ -5,6 +5,7 @@ FactoryBot.define do
     password { 'password' }
     sequence(:username) { |n| "user_#{n}" }
     gender { Account::Gender::MALE }
+    birthday { Time.zone.now - 30.years }
 
     trait :with_avatar do
       before(:create) do |account|
