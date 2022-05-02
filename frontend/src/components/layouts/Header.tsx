@@ -9,6 +9,8 @@ import {IconButton} from "@mui/material";
 import {Menu} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom"
 import {AuthContext} from "../../App";
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 
 const useStyles = makeStyles(() => ({
     iconButton: {},
@@ -25,26 +27,31 @@ const useStyles = makeStyles(() => ({
 function Header() {
     const { loading, isSignedIn, setIsSignedIn, setCurrentAccount } = useContext(AuthContext)
     const classes = useStyles()
-    const navigate = useNavigate()
-
-    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
-        setCurrentAccount(undefined)
-        setIsSignedIn(false)
-        localStorage.removeItem("AUTH_TOKEN")
-        navigate("/signin")
-    }
 
     const AuthButtons = () => {
         if (!loading) {
             if (isSignedIn) {
                 return (
-                    <Button
-                        color="inherit"
-                        className={classes.linkBtn}
-                        onClick={handleLogout}
-                    >
-                        ログアウト
-                    </Button>
+                    <>
+                        <IconButton
+                            component={Link}
+                            to='/accounts'
+                            edge='start'
+                            className={classes.linkBtn}
+                            color='inherit'
+                        >
+                            <PersonSearchIcon />
+                        </IconButton>
+                        <IconButton
+                            component={Link}
+                            to='/rooms'
+                            edge='start'
+                            className={classes.linkBtn}
+                            color='inherit'
+                        >
+                            <ChatBubbleIcon />
+                        </IconButton>
+                    </>
                 )
             } else {
                 return (
