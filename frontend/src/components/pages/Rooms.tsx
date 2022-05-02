@@ -37,9 +37,9 @@ function Rooms() {
     const handleGetRooms = async () => {
         try {
             const res = await getRooms()
+            console.log('- handleGetRooms')
+            console.log(res)
             if (res.status === 200) {
-                console.log('========res.data======')
-                console.log(res.data)
                 setRooms(res.data)
             } else {
                 console.log('No Rooms')

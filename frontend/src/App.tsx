@@ -8,6 +8,7 @@ import SignUp from "./components/pages/SignUp";
 import Rooms from "./components/pages/Rooms";
 import Accounts from "./components/pages/Accounts";
 import {getCurrentAccount} from "./lib/api/accounts";
+import Room from "./components/pages/Room";
 
 export const AuthContext = createContext({} as {
     loading: boolean
@@ -58,6 +59,7 @@ function App() {
                         <Route path='/' element={<Home/>}/>
                         <Route path='/accounts' element={<Accounts/>}/>
                         <Route path='/rooms' element={<Rooms/>}/>
+                        <Route path='/rooms/:id' element={<Room/>}/>
                     </Routes>
                 </CommonLayout>
             </AuthContext.Provider>
