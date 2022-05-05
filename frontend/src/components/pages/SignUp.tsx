@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import {makeStyles} from "@mui/styles";
 import {Link, useNavigate} from "react-router-dom"
 import {
@@ -7,21 +7,29 @@ import {
     Card,
     CardContent,
     CardHeader,
-    FormControl,
+    FormControl, Grid, IconButton,
     InputLabel, MenuItem, Select,
     TextField,
     Typography
 } from "@mui/material";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import {SignUpParams} from "../../interfaces/account"
 import {signUp} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import {genders} from "../../data/genders";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import CancelIcon from "@mui/icons-material/Cancel";
+import {prefectures} from "../../data/prefectures";
 
 const useStyles = makeStyles(() => ({
+    container: {
+        marginTop: 6
+    },
     submitBtn: {
-        paddingTop: 2,
-        textAlign: "right",
+        marginTop: 1,
         flexGrow: 1,
         textTransform: "none"
     },
@@ -30,13 +38,22 @@ const useStyles = makeStyles(() => ({
     },
     card: {
         padding: 2,
-        maxWidth: 400
+        maxWidth: 340
+    },
+    inputFileButton: {
+        textTransform: "none"
+    },
+    imageUploadBtn: {
+        textAlign: "right"
+    },
+    input: {
+        display: "none"
     },
     box: {
-        paddingTop: "2rem"
+        marginBottom: "1.5rem"
     },
-    link: {
-        textDecoration: "none"
+    preview: {
+        width: "100%"
     }
 }))
 
@@ -48,10 +65,24 @@ function SignUp() {
     const [password, setPassword] = useState<string>('')
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
     const [username, setUsername] = useState<string>('')
-    const [gender, setGender] = useState<number>(0)
+    const [gender, setGender] = useState<string>('')
     const [prefecture, setPrefecture] = useState<string>('')
-    const [introduction, setIntroduction] = useState<string>('')
+    const [image, setImage] = useState<string>('')
+    const [preview, setPreview] = useState<string>('')
+    const [birthday, setBirthday] = useState<Date | null>(
+        new Date("2000-01-01T00:00:00"),
+    )
     const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+    const uploadImage = useCallback((e) => {
+        const file = e.target.files[0]
+        setImage(file)
+    }, [])
+
+    const previewImage = useCallback((e) => {
+        const file = e.target.files[0]
+        setPreview(window.URL.createObjectURL(file))
+    }, [])
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault() // ユーザーにイベントが明示的に処理されない場合にその既定のアクションを通常通りに行うべきではないことを伝える
@@ -63,8 +94,7 @@ function SignUp() {
                 passwordConfirmation: passwordConfirmation,
                 username: username,
                 gender: gender,
-                prefecture: prefecture,
-                introduction: introduction
+                prefecture: prefecture
             }
         }
 
@@ -145,22 +175,93 @@ function SignUp() {
                                 id="demo-simple-select-outlined"
                                 value={gender}
                                 // TODO: できない
-                                // onChange={(e: React.ChangeEvent<{ value: unknown }>) => setGender(e.target.value as number)}
+                                onChange={(e) => setGender(e.target.value) }
                                 label="性別"
                             >
                                 {
                                     genders.map((gender: string, index: number) =>
-                                        <MenuItem value={index}>{gender}</MenuItem>
+                                        <MenuItem value={gender}>{gender}</MenuItem>
                                     )
                                 }
                             </Select>
                         </FormControl>
+                        <FormControl
+                            variant="outlined"
+                            margin="dense"
+                            fullWidth
+                        >
+                            <InputLabel id="demo-simple-select-outlined-label">都道府県</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                value={prefecture}
+                                onChange={(e) => setPrefecture(e.target.value)}
+                                label="都道府県"
+                            >
+                                {
+                                    prefectures.map((prefecture, index) =>
+                                        <MenuItem key={index +1} value={prefecture}>{prefecture}</MenuItem>
+                                    )
+                                }
+                            </Select>
+                        </FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Grid container justifyContent="space-around">
+                                <DatePicker
+                                    label="誕生日"
+                                    inputFormat="MM/dd/yyyy"
+                                    value={birthday}
+                                    onChange={(date: Date | null) => { setBirthday(date) }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </Grid>
+                        </LocalizationProvider>
+                        <div className={classes.imageUploadBtn}>
+                            <input
+                                accept='image/*'
+                                className={classes.input}
+                                id='icon-button-file'
+                                type="file"
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    uploadImage(e)
+                                    previewImage(e)
+                                }}
+                            />
+                            <label htmlFor="icon-button-file">
+                                <IconButton
+                                    color='primary'
+                                    aria-label='upload picture'
+                                    component='span'
+                                >
+                                    <PhotoCameraIcon />
+                                </IconButton>
+                            </label>
+                        </div>
+                        {
+                            preview ? (
+                                <Box
+                                    className={classes.box}
+                                >
+                                    <IconButton
+                                        color="inherit"
+                                        onClick={() => setPreview('')}
+                                    >
+                                        <CancelIcon />
+                                    </IconButton>
+                                    <img
+                                        src={preview}
+                                        alt="preview img"
+                                        className={classes.preview}
+                                    />
+                                </Box>
+                            ) : null
+                        }
                         <Box className={classes.submitBtn}>
                             <Button
                                 type="submit"
                                 variant="outlined"
                                 color="primary"
-                                disabled={!email || !password || !passwordConfirmation || !username ? true : false}
+                                disabled={!email || !password || !passwordConfirmation || !username || !birthday ? true : false}
                                 onClick={handleSubmit}
                             >
                                 送信

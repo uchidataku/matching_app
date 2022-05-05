@@ -209,21 +209,20 @@ function Home() {
                                         margin="dense"
                                         fullWidth
                                     >
-                                        {/*<InputLabel id="demo-simple-select-outlined-label">都道府県</InputLabel>*/}
-                                        {/*TODO: (e: React.ChangeEvent<{ value: string;}>) => void' is not assignable to type*/}
-                                        {/*<Select*/}
-                                        {/*    labelId="demo-simple-select-outlined-label"*/}
-                                        {/*    id="demo-simple-select-outlined"*/}
-                                        {/*    value={prefecture}*/}
-                                        {/*    onChange={(e: React.ChangeEvent<{ value: string }>) => setPrefecture(e.target.value)}*/}
-                                        {/*    label="都道府県"*/}
-                                        {/*>*/}
-                                        {/*    {*/}
-                                        {/*        prefectures.map((prefecture, index) =>*/}
-                                        {/*            <MenuItem key={index + 1} value={prefecture}>{prefecture}</MenuItem>*/}
-                                        {/*        )*/}
-                                        {/*    }*/}
-                                        {/*</Select>*/}
+                                        <InputLabel id="demo-simple-select-outlined-label">都道府県</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            value={prefecture}
+                                            onChange={(e) => setPrefecture(e.target.value)}
+                                            label="都道府県"
+                                        >
+                                            {
+                                                prefectures.map((prefecture, index) =>
+                                                    <MenuItem key={index + 1} value={prefecture}>{prefecture}</MenuItem>
+                                                )
+                                            }
+                                        </Select>
                                     </FormControl>
                                     <TextField
                                         placeholder="1000文字以内で書いてください。"

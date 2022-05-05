@@ -4,9 +4,8 @@ export interface SignUpParams {
         email: string
         password: string
         passwordConfirmation: string
-        gender: number
+        gender: string
         prefecture: string
-        introduction: string
     }
 }
 
