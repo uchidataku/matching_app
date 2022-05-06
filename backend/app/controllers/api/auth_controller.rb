@@ -20,7 +20,14 @@ module Api
     private
 
     def resource_params
-      params.require(:account).permit(:email, :password, :username)
+      params.require(:account).permit(
+        :email,
+        :password,
+        :username,
+        :gender,
+        :prefecture,
+        :birthday
+      )
     end
   end
 end

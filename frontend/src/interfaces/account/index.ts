@@ -6,6 +6,7 @@ export interface SignUpParams {
         passwordConfirmation: string
         gender: string
         prefecture: string
+        birthday: Date | null
     }
 }
 
@@ -16,16 +17,15 @@ export interface SignInData {
     }
 }
 
-// export type Gender = 'male' | 'female'
-//
-// export const genderLabelFor = (gender: Gender): string => {
-//     switch(gender) {
-//         case "male":
-//             return "男性";
-//         case "female":
-//             return "女性";
-//     }
-// }
+export type Gender = 'male' | 'female';
+
+export const genderLabelFor = (gender: string): Gender => {
+    if(gender === "女性") {
+        return "female";
+    } else {
+        return "male";
+    }
+}
 
 export interface Account {
     id: string

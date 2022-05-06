@@ -15,7 +15,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import {SignUpParams} from "../../interfaces/account"
+import {genderLabelFor, SignUpParams} from "../../interfaces/account"
 import {signUp} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
@@ -85,6 +85,11 @@ function SignUp() {
     }, [])
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log('- handleSubmit')
+        console.log(gender)
+        console.log(prefecture)
+        console.log(birthday)
+
         e.preventDefault() // ユーザーにイベントが明示的に処理されない場合にその既定のアクションを通常通りに行うべきではないことを伝える
 
         const data: SignUpParams = {
@@ -93,10 +98,14 @@ function SignUp() {
                 password: password,
                 passwordConfirmation: passwordConfirmation,
                 username: username,
-                gender: gender,
-                prefecture: prefecture
+                gender: genderLabelFor(gender),
+                prefecture: prefecture,
+                birthday: birthday
             }
         }
+
+        console.log('====data====')
+        console.log(data)
 
         try {
             const res = await signUp(data)
