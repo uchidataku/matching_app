@@ -3,8 +3,9 @@ module Api
   # LikesController
   class LikesController < ApplicationController
     def index
-      @likes = current_account.likes_from
-      render json: @likes
+      account = Account.find_by(id: params[:account_id])
+      @accounts = account.active_like_accounts
+      render json: @accounts
     end
 
     def create
