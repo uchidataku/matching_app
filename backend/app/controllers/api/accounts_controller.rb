@@ -13,8 +13,14 @@ module Api
       render json: @account
     end
 
-    def edit
+    def update
       @account.update!(resource_params)
+      if params[:account][:avatar]
+        File.open(params[:account][:avatar]) do |io|
+          @account.avatar.attach(io: io, filename: params[:account][:avatar].original_filename)
+        end
+      end
+
       render json: @account
     end
 
@@ -27,11 +33,11 @@ module Api
 
     def resource_params
       params.require(:account).permit(
+      :username,
         :gender,
         :birthday,
         :prefecture,
-        :introduction,
-        :avatar
+        :introduction
       )
     end
     
