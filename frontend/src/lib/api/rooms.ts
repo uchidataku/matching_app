@@ -3,8 +3,6 @@ import client from "./client";
 const token = localStorage.getItem("APP_AUTH_TOKEN");
 
 export const getRooms = () => {
-    console.log('====token====')
-    console.log(token)
     return client.get('rooms', { headers: { 'Authorization': `Bearer ${token}` } })
 }
 

@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import {Account} from "../../interfaces/account";
-import {CreateLikeData, Like} from "../../interfaces/like";
+import {CreateLikeData} from "../../interfaces/like";
 import {getAccounts} from "../../lib/api/accounts";
 import {makeStyles} from "@mui/styles";
 import {createLike, getLikes} from "../../lib/api/likes";
