@@ -18,7 +18,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {useNavigate} from "react-router-dom";
-import {UpdateAccountData, UpdateAccountFormData} from "../../interfaces/account";
+import {UpdateAccountFormData} from "../../interfaces/account";
 import {prefectures} from "../../data/prefectures";
 import {updateAccount} from "../../lib/api/accounts";
 

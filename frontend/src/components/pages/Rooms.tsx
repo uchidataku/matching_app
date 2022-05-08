@@ -1,17 +1,13 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@mui/styles";
-import {Link, useNavigate} from "react-router-dom"
+import {Link} from "react-router-dom"
 import {
     Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
     Grid,
     List,
-    ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText,
-    TextField,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
     Typography
 } from "@mui/material";
 import {Room} from "../../interfaces/room";
