@@ -71,6 +71,17 @@ function Rooms() {
                                                     </ListItemAvatar>
                                                     <ListItemText
                                                         primary={room.otherAccount.username}
+                                                        secondary={
+                                                            <div style={{ marginTop: "0.5rem" }}>
+                                                                <Typography
+                                                                    component="span"
+                                                                    variant="body2"
+                                                                    color="textSecondary"
+                                                                >
+                                                                    {room.latestMessage === null ? "まだメッセージはありません。" : room.latestMessage.content.length > 30 ? room.latestMessage.content.substr(0, 30) + "..." : room.latestMessage.content}
+                                                                </Typography>
+                                                            </div>
+                                                        }
                                                     />
                                                 </ListItem>
                                             </div>

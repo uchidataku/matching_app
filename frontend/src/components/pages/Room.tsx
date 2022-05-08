@@ -102,7 +102,7 @@ function Room() {
             {
                 !loading ? (
                     <div style={{ maxWidth: 360 }}>
-                        <Grid container justifyItems="center" style={{ marginBottom: "1rem" }}>
+                        <Grid container justifyContent="center" style={{ marginBottom: "1rem" }}>
                             <Grid item>
                                 <Avatar
                                     alt='avatar'
