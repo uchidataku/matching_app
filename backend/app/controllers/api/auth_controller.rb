@@ -14,6 +14,11 @@ module Api
 
     def sign_up
       account = Account.create!(resource_params)
+      if params[:account][:avatar]
+        File.open(params[:account][:avatar]) do |io|
+          account.avatar.attach(io: io, filename: params[:account][:avatar].original_filename)
+        end
+      end
       render json: account, status: :created, serializer: AccountWithTokenSerializer
     end
 

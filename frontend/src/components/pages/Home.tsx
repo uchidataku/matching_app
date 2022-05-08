@@ -18,7 +18,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {useNavigate} from "react-router-dom";
-import {UpdateAccountData} from "../../interfaces/account";
+import {UpdateAccountData, UpdateAccountFormData} from "../../interfaces/account";
 import {prefectures} from "../../data/prefectures";
 import {updateAccount} from "../../lib/api/accounts";
 
@@ -77,45 +77,45 @@ function Home() {
         return Math.floor((parseInt(today) - parseInt(birthday)) / 10000)
     }
 
-    // TODO: UpdateAccountDataを使ったFormDataの作り方が分からん
-    // const createFormData = (): UpdateAccountData => {
-    //     const formData = new FormData()
-    //
-    //     formData.append(`account[username]`, username || '')
-    //     formData.append(`account[prefecture]`, prefecture || '')
-    //     formData.append(`account[introduction]`, introduction || '')
-    //     formData.append(`account[avatar]`, image)
-    //     return formData;
-    // }
+    // TODO: UpdateAccountDataを使ったFormDataの作り方でなぜそうなるのか分からん
+    const createFormData = (): UpdateAccountFormData => {
+        const formData = new FormData()
+
+        formData.append(`account[username]`, username || '')
+        formData.append(`account[prefecture]`, prefecture || '')
+        formData.append(`account[introduction]`, introduction || '')
+        formData.append(`account[avatar]`, image)
+        return formData;
+    }
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        // if(!currentAccount) return
-        //
-        // e.preventDefault()
-        // const data = createFormData()
-        //
-        // try {
-        //     const res = await updateAccount(currentAccount.id, data)
-        //     console.log('- handleSubmit')
-        //     console.log(res)
-        //
-        //     if (res.status === 200) {
-        //         setEditFormOpen(false)
-        //         setCurrentAccount(res.data)
-        //         console.log('Success updated account')
-        //     } else {
-        //         console.log(res.data.message)
-        //     }
-        // } catch (err) {
-        //     console.log(err)
-        //     console.log('Failed in update account')
-        // }
+        if(!currentAccount) return
+
+        e.preventDefault()
+        const data = createFormData()
+
+        try {
+            const res = await updateAccount(currentAccount.id, data)
+            console.log('- handleSubmit')
+            console.log(res)
+
+            if (res.status === 200) {
+                setEditFormOpen(false)
+                setCurrentAccount(res.data)
+                console.log('Success updated account')
+            } else {
+                console.log(res.data.message)
+            }
+        } catch (err) {
+            console.log(err)
+            console.log('Failed in update account')
+        }
     }
 
     const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
         setCurrentAccount(undefined)
         setIsSignedIn(false)
-        localStorage.removeItem("AUTH_TOKEN")
+        localStorage.removeItem("APP_AUTH_TOKEN")
         navigate("/signin")
     }
 

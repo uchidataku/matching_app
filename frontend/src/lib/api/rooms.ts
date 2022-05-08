@@ -1,6 +1,6 @@
 import client from "./client";
 
-const token = localStorage.getItem("AUTH_TOKEN");
+const token = localStorage.getItem("APP_AUTH_TOKEN");
 
 export const getRooms = () => {
     console.log('====token====')

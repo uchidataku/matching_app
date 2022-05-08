@@ -52,7 +52,7 @@ function SignIn() {
             console.log(res)
 
             if (res.status === 200) {
-                localStorage.setItem("AUTH_TOKEN", res.data.token)
+                localStorage.setItem("APP_AUTH_TOKEN", res.data.token)
                 setIsSignedIn(true)
                 setCurrentAccount(res.data.account)
                 navigate("/")

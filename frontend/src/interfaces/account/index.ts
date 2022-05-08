@@ -1,4 +1,4 @@
-export interface SignUpParams {
+export interface SignUpData {
     account: {
         username: string
         email: string
@@ -6,8 +6,13 @@ export interface SignUpParams {
         passwordConfirmation: string
         gender: string
         prefecture: string
-        birthday: Date | null
+        birthday: String | number | Date
+        avatar: string
     }
+}
+
+export interface SignUpFormData extends FormData {
+    append(name: keyof SignUpData, value: String | Blob, fileName?: string): any
 }
 
 export interface SignInData {
@@ -46,4 +51,8 @@ export interface UpdateAccountData {
         introduction: string
         avatar: string
     }
+}
+
+export interface UpdateAccountFormData extends FormData {
+    append(name: keyof UpdateAccountData, value: String | Blob, fileName?: string): any
 }

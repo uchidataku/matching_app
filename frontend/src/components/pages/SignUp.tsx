@@ -15,7 +15,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import {genderLabelFor, SignUpParams} from "../../interfaces/account"
+import {genderLabelFor, SignUpFormData} from "../../interfaces/account"
 import {signUp} from "../../lib/api/auth";
 import {AuthContext} from "../../App";
 import AlertMessage from "../utils/AlertMessage";
@@ -70,7 +70,7 @@ function SignUp() {
     const [image, setImage] = useState<string>('')
     const [preview, setPreview] = useState<string>('')
     const [birthday, setBirthday] = useState<Date | null>(
-        new Date("2000-01-01T00:00:00"),
+        new Date("2000-01-01T00:00:00")
     )
     const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
@@ -84,35 +84,30 @@ function SignUp() {
         setPreview(window.URL.createObjectURL(file))
     }, [])
 
+    const createFormData = (): SignUpFormData => {
+        const formData = new FormData()
+
+        formData.append(`account[email]`, email)
+        formData.append(`account[password]`, password)
+        formData.append(`account[passwordConfirmation]`, passwordConfirmation)
+        formData.append(`account[username]`, username)
+        formData.append(`account[gender]`, genderLabelFor(gender))
+        formData.append(`account[prefecture]`, prefecture)
+        formData.append(`account[birthday]`, String(birthday))
+        formData.append(`account[avatar]`, image)
+        return formData;
+    }
+
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('- handleSubmit')
-        console.log(gender)
-        console.log(prefecture)
-        console.log(birthday)
-
         e.preventDefault() // ユーザーにイベントが明示的に処理されない場合にその既定のアクションを通常通りに行うべきではないことを伝える
-
-        const data: SignUpParams = {
-            account: {
-                email: email,
-                password: password,
-                passwordConfirmation: passwordConfirmation,
-                username: username,
-                gender: genderLabelFor(gender),
-                prefecture: prefecture,
-                birthday: birthday
-            }
-        }
-
-        console.log('====data====')
-        console.log(data)
+        const data = createFormData()
 
         try {
             const res = await signUp(data)
             console.log(res)
 
             if (res.status === 201) {
-                localStorage.setItem("AUTH_TOKEN", res.data.token)
+                localStorage.setItem("APP_AUTH_TOKEN", res.data.token)
                 setIsSignedIn(true)
                 setCurrentAccount(res.data.account)
                 navigate("/")
