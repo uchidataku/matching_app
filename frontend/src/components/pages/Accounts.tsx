@@ -114,7 +114,7 @@ function Accounts() {
     useEffect(() => {
         handleGetAccounts()
         handleGetLikes()
-    }, [])
+    }, [currentAccount])
 
     return (
         <>

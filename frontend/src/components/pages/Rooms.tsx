@@ -64,7 +64,7 @@ function Rooms() {
                             return (
                                 <Grid container key={index} justifyItems="center">
                                     <List>
-                                        <Link to={`rooms/${room.id}`} className={classes.link}>
+                                        <Link to={`${room.id}`} className={classes.link}>
                                             <div className={classes.root}>
                                                 <ListItem alignItems="flex-start" style={{padding: 0 }}>
                                                     <ListItemAvatar>

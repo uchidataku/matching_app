@@ -4,6 +4,8 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_account!
 
+  serialization_scope :current_account
+
   attr_reader :current_account
 
   def authenticate_account!

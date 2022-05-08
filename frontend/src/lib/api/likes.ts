@@ -4,7 +4,6 @@ import {CreateLikeData} from "../../interfaces/like";
 const token = localStorage.getItem("APP_AUTH_TOKEN");
 
 export const getLikes = (account_id: string) => {
-    console.log('- getLikes')
     return client.get(`accounts/${account_id}/likes`, { headers: { 'Authorization': `Bearer ${token}` } })
 }
 

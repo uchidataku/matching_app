@@ -7,6 +7,7 @@ import {Account} from "../../interfaces/account";
 import SendIcon from '@mui/icons-material/Send';
 import {createMessage} from "../../lib/api/messages";
 import {getRoom} from "../../lib/api/rooms";
+import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     avatar: {
@@ -24,13 +25,14 @@ const useStyles = makeStyles(() => ({
         width: "100%"
     },
     button: {
-        marginLeft: 1
+        margin: '5'
     }
 }))
 
 function Room() {
     const classes = useStyles()
-    const id = 'hoge'
+    const params = useParams()
+    const id = String(params.id)
     const [loading, setLoading] = useState<boolean>(true)
     const [otherAccount, setOtherAccount] = useState<Account>()
     const [messages, setMessages] = useState<Message[]>([])
@@ -83,7 +85,7 @@ function Room() {
             console.log(res)
 
             if (res.status === 200) {
-                setMessages([...messages, res.data.message])
+                setMessages([...messages, res.data])
                 setContent("")
             }
         } catch (err) {
@@ -102,7 +104,11 @@ function Room() {
                     <div style={{ maxWidth: 360 }}>
                         <Grid container justifyItems="center" style={{ marginBottom: "1rem" }}>
                             <Grid item>
-                                <Avatar/>
+                                <Avatar
+                                    alt='avatar'
+                                    src={otherAccount?.avatarUrl}
+                                    className={classes.avatar}
+                                />
                                 <Typography
                                     variant="body2"
                                     component="p"

@@ -9,7 +9,7 @@ class RoomSerializer < ActiveModel::Serializer
   end
 
   attribute :other_account do
-    object.accounts.where.not(id: current_account.id).first
+    AccountSerializer.new(object.accounts.where.not(id: current_account.id).first)
   end
   
   has_many :messages
